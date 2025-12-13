@@ -1,0 +1,2 @@
+BA001  London → New York   ETD 10:30
+KQ101  London → Nairobi    ETD 12:15

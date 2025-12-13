@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Logs
+logs/operations.log
+
+# Backups
+*.bak
+
+# Editor temp files
+*~
+
