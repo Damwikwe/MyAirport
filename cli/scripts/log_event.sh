@@ -1,19 +1,22 @@
 #!/bin/bash
 
-# Log an operational event with a timestamp into logs/operations.log
+# Log an operational event with timestamp into data/logs/operations.log
 # Usage:
-#   ./scripts/log_event.sh "KQ300 delayed due to weather"
+#   ./cli/scripts/log_event.sh "KQ300 delayed due to weather"
 
 MESSAGE="$*"
 
 if [ -z "$MESSAGE" ]; then
-  echo "Usage: ./scripts/log_event.sh \"Some message about an event\""
+  echo "Usage: ./cli/scripts/log_event.sh \"Some operational event\""
   exit 1
 fi
 
-mkdir -p logs
-touch logs/operations.log
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+DATA="$ROOT/data"
 
-echo "$(date '+%Y-%m-%d %H:%M:%S') - $MESSAGE" >> logs/operations.log
+mkdir -p "$DATA/logs"
+touch "$DATA/logs/operations.log"
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') - $MESSAGE" >> "$DATA/logs/operations.log"
 echo "Logged: $MESSAGE"
-
