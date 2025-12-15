@@ -9,6 +9,8 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
+const DATA = path.join(ROOT, "data");
+
 
 const validTerminals = new Set(["Terminal1", "Terminal2", "Terminal3"]);
 const validBoards = new Set(["arrivals", "departures"]);
@@ -16,10 +18,10 @@ const validBoards = new Set(["arrivals", "departures"]);
 function boardPath(terminal, board) {
   if (!validTerminals.has(terminal)) throw new Error("Invalid terminal");
   if (!validBoards.has(board)) throw new Error("Invalid board");
-  return path.join(ROOT, terminal, `${board}.txt`);
+  return path.join(DATA, terminal, `${board}.txt`);
 }
 
-app.use(express.static(path.join(ROOT, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/api/board", async (req, res) => {
   try {
