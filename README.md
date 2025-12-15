@@ -1,16 +1,53 @@
 # MyAirport ✈️
 
-**MyAirport** is a command-line airport simulation built using **Bash shell scripts**.  
-It models terminals, arrivals, departures, and operational logs using a simple but realistic directory structure.
+**MyAirport** is a hybrid **Command Line Interface (CLI) and Web-based airport simulation**, built to explore systems thinking, shell scripting, and full-stack integration.
 
-The project is designed as both:
-- a **learning environment** for shell scripting and CLI workflows, and
-- a **mini simulation** of how real-world systems (like airports) organise information.
+The project models how an airport organises operational data — terminals, arrivals, departures, and logs — using a shared filesystem, accessed consistently via both shell scripts and a browser interface.
 
 ---
 
 ## 🧭 Project Overview
 
-The airport is represented as a folder structure:
+At its core, MyAirport is about **coordination**:
 
+- CLI tools and a web dashboard operate on the **same underlying data**
+- The filesystem acts as a simple, transparent “database”
+- Clear separation exists between:
+  - data (state)
+  - tooling (CLI)
+  - services (web server)
+  - interface (browser UI)
 
+This mirrors real-world architectural patterns in a deliberately lightweight way.
+
+---
+
+## 📁 Repository Structure
+
+```text
+MyAirport/
+├── data/                  # Airport state (runtime data)
+│   ├── Terminal1/
+│   ├── Terminal2/
+│   ├── Terminal3/
+│   ├── Airlines/
+│   ├── Gates/
+│   └── logs/
+│
+├── cli/                   # Command-line tools
+│   └── scripts/
+│       ├── add_flight.sh
+│       ├── add_departure.sh
+│       ├── list_terminal.sh
+│       └── log_event.sh
+│
+├── web/                   # Web application
+│   ├── server.js          # Node.js / Express API
+│   └── public/
+│       ├── index.html     # Browser UI
+│       └── app.js
+│
+├── README.md
+├── package.json
+├── package-lock.json
+└── .gitignore
