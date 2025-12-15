@@ -8,5 +8,8 @@ logs/operations.log
 *.bak
 
 # Editor temp files
+
+# Node dependencies
+node_modules/
 *~
 
