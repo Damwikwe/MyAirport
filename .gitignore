@@ -11,5 +11,11 @@ logs/operations.log
 
 # Node dependencies
 node_modules/
+
+# Airport runtime data
+data/Terminal*/arrivals.txt
+data/Terminal*/departures.txt
+data/logs/operations.log
+
 *~
 
