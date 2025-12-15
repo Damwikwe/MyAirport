@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MyAirport Dashboard</title>
+    <style>
+      body { font-family: system-ui, -apple-system, sans-serif; margin: 24px; }
+      .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+      select, input, button { padding: 8px 10px; font-size: 14px; }
+      pre { background: #f6f6f6; padding: 12px; border-radius: 8px; overflow: auto; }
+      button { cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <h1>MyAirport ✈️</h1>
+
+    <div class="row">
+      <label>Terminal:
+        <select id="terminal">
+          <option>Terminal1</option>
+          <option>Terminal2</option>
+          <option>Terminal3</option>
+        </select>
+      </label>
+
+      <label>Board:
+        <select id="board">
+          <option value="arrivals">arrivals</option>
+          <option value="departures">departures</option>
+        </select>
+      </label>
+
+      <button id="load">Load board</button>
+    </div>
+
+    <h3>Add flight</h3>
+    <div class="row">
+      <input id="flight" size="50" placeholder='e.g. "KQ300 Nairobi → London ETA 18:20"' />
+      <button id="add">Add</button>
+    </div>
+
+    <h3>Board</h3>
+    <pre id="output">(click “Load board”)</pre>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+
