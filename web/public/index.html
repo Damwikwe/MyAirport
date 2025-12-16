@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MyAirport Dashboard</title>
+    <link rel="stylesheet" href="./style.css" />
     <style>
       body { font-family: system-ui, -apple-system, sans-serif; margin: 24px; }
       .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
@@ -13,37 +14,54 @@
     </style>
   </head>
   <body>
-    <h1>MyAirport ✈️</h1>
-
-    <div class="row">
-      <label>Terminal:
-        <select id="terminal">
-          <option>Terminal1</option>
-          <option>Terminal2</option>
-          <option>Terminal3</option>
-        </select>
-      </label>
-
-      <label>Board:
-        <select id="board">
-          <option value="arrivals">arrivals</option>
-          <option value="departures">departures</option>
-        </select>
-      </label>
-
-      <button id="load">Load board</button>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>MyAirport ✈️</h1>
+        <p class="sub">CLI + Web dashboard sharing the same airport data</p>
+      </div>
+      <p class="kbd">Server: <code>localhost:3000</code></p>
     </div>
 
-    <h3>Add flight</h3>
-    <div class="row">
-      <input id="flight" size="50" placeholder='e.g. "KQ300 Nairobi → London ETA 18:20"' />
-      <button id="add">Add</button>
+    <div class="grid">
+      <div class="card">
+        <p class="section-title">Board controls</p>
+        <div class="row">
+          <label>Terminal
+            <select id="terminal">
+              <option>Terminal1</option>
+              <option>Terminal2</option>
+              <option>Terminal3</option>
+            </select>
+          </label>
+
+          <label>Board
+            <select id="board">
+              <option value="arrivals">arrivals</option>
+              <option value="departures">departures</option>
+            </select>
+          </label>
+
+          <button id="load">Load board</button>
+        </div>
+
+        <p class="section-title" style="margin-top:14px;">Add flight</p>
+        <div class="row">
+          <input id="flight" placeholder='e.g. KQ300 Nairobi → London ETA 18:20' />
+          <button id="add">Add</button>
+        </div>
+
+        <div class="hint">Tip: keep the server running with <code>npm run start</code>.</div>
+      </div>
+
+      <div class="card">
+        <p class="section-title">Board output</p>
+        <pre id="output">(click “Load board”)</pre>
+      </div>
     </div>
+  </div>
 
-    <h3>Board</h3>
-    <pre id="output">(click “Load board”)</pre>
-
-    <script src="./app.js"></script>
-  </body>
+  <script src="./app.js"></script>
+</body>
 </html>
 

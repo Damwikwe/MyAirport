@@ -1,3 +1,5 @@
+
+console.log("MyAirport app.js loaded ✅ v2 AUTLOAD ON");
 async function loadBoard() {
   const terminal = document.getElementById("terminal").value;
   const board = document.getElementById("board").value;
@@ -34,3 +36,5 @@ async function addFlight() {
 document.getElementById("load").addEventListener("click", loadBoard);
 document.getElementById("add").addEventListener("click", addFlight);
 
+// Auto-load on page open
+loadBoard().catch(e => console.error("loadBoard failed:", e));
