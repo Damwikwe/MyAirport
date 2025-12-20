@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
+
 const app = express();
 app.use(express.json());
 
@@ -47,6 +48,22 @@ app.post("/api/board", async (req, res) => {
   }
 });
 
+app.delete("/api/board", async (req, res) => {
+  try {
+    const { terminal, board, flight } = req.body || {};
+    const p = boardPath(terminal, board);
+
+    const content = await fs.readFile(p, "utf8").catch(() => "");
+    const lines = content.split("\n").filter(Boolean);
+
+    const updated = lines.filter(line => line !== flight);
+
+    await fs.writeFile(p, updated.join("\n") + (updated.length ? "\n" : ""), "utf8");
+    res.json({ ok: true });
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`MyAirport Web UI running on http://localhost:${port}`));
-

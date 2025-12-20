@@ -148,4 +148,31 @@ pre{
   margin-top: 10px;
 }
 
+.board{
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.35);
+  min-height: 280px;
+}
+
+.board-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.board-row:last-child{
+  border-bottom: none;
+}
+
+.board-flight{
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+
 #output { color: #fff !important; background: rgba(0,0,0,0.5) !important; white-space: pre-wrap; }
