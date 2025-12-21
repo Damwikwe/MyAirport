@@ -1,5 +1,5 @@
 
-console.log("MyAirport app.js loaded ✅ v3 DELETE ENABLED");
+console.log("MyAirport app.js loaded ✅ v4 AMEND + DELETE ENABLED");
 
 function getState() {
   const terminal = document.getElementById("terminal").value;
@@ -40,6 +40,16 @@ async function loadBoard() {
     text.className = "board-flight";
     text.textContent = flight;
 
+    const actions = document.createElement("div");
+    actions.style.display = "flex";
+    actions.style.gap = "8px";
+
+    const amend = document.createElement("button");
+    amend.textContent = "Amend";
+    amend.addEventListener("click", async () => {
+      await amendFlight(flight);
+    });
+
     const del = document.createElement("button");
     del.textContent = "Delete";
     del.addEventListener("click", async () => {
@@ -48,8 +58,11 @@ async function loadBoard() {
       await deleteFlight(flight);
     });
 
+    actions.appendChild(amend);
+    actions.appendChild(del);
+
     row.appendChild(text);
-    row.appendChild(del);
+    row.appendChild(actions);
     output.appendChild(row);
   }
 }
@@ -95,6 +108,29 @@ async function deleteFlight(flight) {
   await loadBoard();
 }
 
+async function amendFlight(oldFlight) {
+  const { terminal, board } = getState();
+  const newFlight = prompt("Amend flight details:", oldFlight);
+
+  if (newFlight == null) return;
+  const trimmed = newFlight.trim();
+  if (!trimmed) return;
+
+  const res = await fetch("/api/board", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ terminal, board, oldFlight, newFlight: trimmed })
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    alert(err.error || "Failed to amend flight");
+    return;
+  }
+
+  await loadBoard();
+}
+
 document.getElementById("load").addEventListener("click", () => {
   loadBoard().catch(e => console.error("loadBoard failed:", e));
 });
@@ -103,7 +139,7 @@ document.getElementById("add").addEventListener("click", () => {
   addFlight().catch(e => console.error("addFlight failed:", e));
 });
 
-// Optional: auto-load when dropdowns change (nice UX)
+// Nice UX: reload board when dropdown changes
 document.getElementById("terminal").addEventListener("change", () => {
   loadBoard().catch(e => console.error("loadBoard failed:", e));
 });

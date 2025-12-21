@@ -48,6 +48,33 @@ app.post("/api/board", async (req, res) => {
   }
 });
 
+app.put("/api/board", async (req, res) => {
+  try {
+    const { terminal, board, oldFlight, newFlight } = req.body || {};
+    if (!oldFlight || !newFlight) {
+      throw new Error("Missing oldFlight or newFlight");
+    }
+
+    const p = boardPath(terminal, board);
+
+    const content = await fs.readFile(p, "utf8").catch(() => "");
+    const lines = content.split("\n").filter(Boolean);
+
+    const idx = lines.indexOf(oldFlight);
+    if (idx === -1) {
+      return res.status(404).json({ error: "Flight not found" });
+    }
+
+    lines[idx] = newFlight;
+
+    await fs.writeFile(p, lines.join("\n") + "\n", "utf8");
+    res.json({ ok: true });
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+
 app.delete("/api/board", async (req, res) => {
   try {
     const { terminal, board, flight } = req.body || {};
