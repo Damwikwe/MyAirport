@@ -10,7 +10,9 @@ logs/operations.log
 # Editor temp files
 
 # Node dependencies
+data/
 node_modules/
+
 
 # Airport runtime data
 data/Terminal*/arrivals.txt
